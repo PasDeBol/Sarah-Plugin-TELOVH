@@ -1,0 +1,14 @@
+{
+  "modules" : { 
+    "telovh":     {
+      "description"             : "Sarah gère les appels et messages téléphoniques OVH",
+      "version"                 : "1.0",
+      "url_php"                 : "http://[FIXME]/",
+      "OVH_identifiant"         : "[FIXME]-ovh",
+      "OVH_password"            : "[FIXME]",
+      "OVH_monnumerodeligne"    : "[FIXME]",
+      "OVH_pays"                : "france",
+      "OVH_pays_code"           : "fr"
+     }
+  }
+}

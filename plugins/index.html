@@ -1,0 +1,106 @@
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#plugin-menu .plugin-nav a").click(function () {
+            jQuery("#plugin-menu .content > ul").hide();
+            jQuery("#plugin-menu .plugin-nav ul li").removeClass("active");
+            jQuery(this).parent().addClass("active");
+            jQuery("#" + jQuery(this).data("toggle")).show();
+            return false;
+        });
+    });
+</script>
+<p class="page-header">
+    <span class="lead">Sarah contrôle votre téléphone SIP OVH...</span><br/></br>
+   <b>Version 1.0</b></br></br>
+</p>
+
+<div id="plugin-menu" class="row-fluid">
+    <!--Navigation-->
+    <div class="span3 well plugin-nav">
+        <ul class="nav nav-list">
+            <li class="nav-header">Documentation</li>
+            <li><a href="#" data-toggle="plugin-configuration">Configuration</a></li>
+            <li><a href="#" data-toggle="plugin-commandes1">Appeller un numéro</a></li>
+            <li><a href="#" data-toggle="plugin-commandes2">Lire les messages</a></li>
+             <li><a href="#" data-toggle="plugin-infos">Infos</a></li>
+        </ul>
+    </div>
+    <!--Content-->
+    <div class="span9 content">
+       <!--Principe-->
+        <ul class="unstyled" id="plugin-version" >
+			<li>Version 1.0 (Jérôme Veyret) :</li>
+			<li><i class="icon-play-circle"></i> [X] Version de base</li>
+			<li><i class="icon-play-circle"></i> [X] Sarah compose un numéro</li>
+			<li><i class="icon-play-circle"></i> [X] Sarah consulte, diffuse et efface les messages téléphoniques</li></br>
+        </ul>
+
+		<!--Content-->
+    <div class="span9 content">
+       <!--Principe-->
+        <ul class="unstyled" id="plugin-configuration" style="display: none;">
+			<li><i class="icon-play-circle"></i><strong> Pré requis:</strong><BR>
+			- Installer le <strong>plugin askme</strong> pour le dialogue entre vous et Sarah.</br>
+			- Il est nécessaire d'avoir un <strong>serveur php</strong> (local ou hébergé) disposant d'une <strong>bibliotheque SOAP</strong>.</br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; La page PHP ne contenant aucun identifiant,</br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Je peux éventuellement vous indiquer mon serveur,</br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Contactez moi dans cas.</br>
+			- Avoir un <strong>abonnement téléphonique SIP d'OVH</strong></br>
+			- Pour faire composer un numéro par sarah, il faut un <strong>téléphone compatible</strong> (pas de liste disponible, il faut essayer!) </br></br>
+			
+			<li><i class="icon-play-circle"></i><strong> Installation:</strong><BR>
+			1. Copier le fichier telovh.php sur votre serveur web.</br>
+			2. Configurer le plugin depuis l'interface Sarah (identifiant OVH principal, password, numéro de ligne,...).</br>
+			3. Dans la configuration du plugin, indiquer le chemin d'accès de la page PHP (sans ajouter telovh.php) </br>
+
+        </ul>
+		
+      <!--Appeller un numéro-->
+        <ul class="unstyled" id="plugin-commandes1" style="display: none;">
+            <li><i class="icon-play-circle"></i><strong>Appeller un numéro (clic2call):</strong></br>
+			- Commande vocale, via le xml, copier l'exemple et modifier à souhait!</br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Sarah je veux téléphoner à jérôme s'il te plait"</br>
+			- En http:</br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ../sarah/telovh?action=callnumber&numbertocall=0102030405</br></br>
+			
+			Le téléphone sonnera en affichant le numéro souhaité.</br>
+			Décrocher puis patienter quelques secondes...</br>
+		</ul>
+		
+		<ul class="unstyled" id="plugin-commandes2" style="display: none;">
+			
+			<li><i class="icon-play-circle"></i><strong> Lire ces messages:</strong> </br></br>
+			<strong>- Commande vocale, via le xml:</strong></br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Sarah est ce que j'ai des messages?"</br></br>
+			
+			<strong>- depuis un autre plugin:</strong> </br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SARAH.call('telovh',{'action' : 'message_from_plugin'}, callback());</br>
+			Sarah vérifiera en silence si il y a des messages et ne parlera que si il y en a!</br></br>
+			
+			<strong>- En http:</strong></br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ../sarah/telovh?action=message_from_plugin</br>
+			Sarah vérifiera en silence si il y a des messages et ne parlera que si il y en a!</br></br>
+			
+			
+			<strong>Il suffit ensuite découter les instruction de Sarah et de répondre:</strong></br>
+			- "Oui s'il te plait" pour écouter les messages</br>
+			- "Non merci" pour ne pas écouter les messages</br></br>
+			- "Effacer" pour effacer un message (efface le message chez OVH, donc message perdu, même par téléphone)</br>
+			- "Repeter" pour écouter à nouveau le message </br>
+			- "Suivant" pour passer au message suivant</br>
+			- "Terminer" pour arrêter d'écouter les messages même si il en reste</br>
+			- "Rapeller ce numéro" pour rapeller ce numéro</br></br>
+	
+			En cas d'absence de réponse, Sarah continue de faire écouter les messages!</br>
+       </ul>
+
+		<ul class="unstyled" id="plugin-infos" style="display: none;">
+			<li><i class="icon-play-circle"></i><strong> Les messages sont convertis en mp3 et enregistrés (puis effacés) sur le serveur PHP.</strong> </br></br>
+			<li><i class="icon-play-circle"></i><strong> L'accès aux appels et messages et vue comme une connexion à OVH_Manager (email d'avertissement?)</strong> </br></br>
+			<li><i class="icon-play-circle"></i><strong> Le plugin est testé et opérationel avec des numéros français!</strong> </br></br>
+			<li><i class="icon-play-circle"></i><strong> Les messages sont générés en MP3 sur le serveur php </strong> </br></br>
+			<li><i class="icon-play-circle"></i><strong> Il faut attendre la fin des propositions de sarah pour répondre.</strong> </br></br>
+		</ul>
+
+   </div>
+</div>

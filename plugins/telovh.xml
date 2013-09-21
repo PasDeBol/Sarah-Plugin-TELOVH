@@ -1,0 +1,11 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="telovh" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+	<rule id="telovh" scope="public">
+		<tag>out.action=new Object();</tag>
+		<item >Sarah</item>
+		<one-of>
+			<item>est ce que j'ai des messages?<tag>out.action.action = "message"</tag></item>
+			<item>je veux téléphoner à jérôme s'il te plait<tag>out.action.action = "callnumber";out.action.numbertocall = "0101010101";</tag></item>
+		</one-of>
+		<tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/telovh";</tag>
+	</rule>
+ </grammar>
