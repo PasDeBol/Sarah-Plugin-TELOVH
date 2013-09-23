@@ -30,8 +30,12 @@ exports.action = function (data, callback, config, SARAH) {
 					moment.lang('fr');
 					var datemessage = moment.unix(parseInt(SARAH.context.telovh.messagesvocaux[message_to_listen].le)).local();
 					var datejour=moment();
-					if (datemessage.format("dddd D MMMM")==datejour.format("dddd D MMMM"))																	//TODAY
+					if (datemessage.format("dddd D MMMM")==datejour.format("dddd D MMMM"))																	// TODAY
 						{textedatemessage=' aujourd\'hui à '+datemessage.format("HH")+'H'+datemessage.format("mm")+' ';}
+					else if (datejour.format("DDD")-datemessage.format("DDD")<=1)																			// YESTERDAY
+						{textedatemessage=' hier à '+datemessage.format("HH")+'H'+datemessage.format("mm")+' ';}
+					else if (datejour.format("DDD")-datemessage.format("DDD")<=6)																			// Less than 7 Day -> Name of day
+						{textedatemessage=' '+datemessage.format("dddd")+' à '+datemessage.format("HH")+'H'+datemessage.format("mm")+' ';}
 					else if (datemessage.format("MMMM")==datejour.format("MMMM")) 																			// THIS MONTH
 						{textedatemessage=' ' + datemessage.format("dddd D")+' à '+datemessage.format("HH")+'H'+datemessage.format("mm")+' ';}
 					else 
